@@ -41,6 +41,11 @@ jobs:
         run: cargo build
         timeout-minutes: 90
 
+      # Building single packages can cause it to fail, and since this is mentioned in the README as example
+      # so we should check that it acually works:
+      - name: Build the node
+        run: cargo build --package parachain-template-node --release
+
       - name: Run clippy
         run: |
           SKIP_WASM_BUILD=1 cargo clippy --all-targets --locked --workspace --quiet
