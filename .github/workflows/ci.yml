@@ -54,10 +54,6 @@ jobs:
         run: cargo build
         timeout-minutes: 90
 
-      # This is mentioned as example in the README:
-      - name: Build the node
-        run: cargo build --package parachain-template-node --release
-
       - name: Run clippy
         run: |
           SKIP_WASM_BUILD=1 cargo clippy --all-targets --locked --workspace --quiet
@@ -71,6 +67,13 @@ jobs:
       - name: Build the docs
         run: SKIP_WASM_BUILD=1 cargo doc --workspace --no-deps
         timeout-minutes: 15
+
+      # This is mentioned as example in the README:
+      - name: Build the node
+        run: |
+          # Save some space from debug builds
+          rm -rf ./target
+          cargo build --package parachain-template-node --release
 
   build-docker:
     runs-on: ubuntu-latest
