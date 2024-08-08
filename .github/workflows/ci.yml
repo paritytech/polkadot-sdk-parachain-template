@@ -74,6 +74,7 @@ jobs:
           # Save some space from debug builds
           rm -rf ./target
           cargo build --package parachain-template-node --release
+        timeout-minutes: 90
 
   build-docker:
     runs-on: ubuntu-latest
