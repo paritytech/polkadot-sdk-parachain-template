@@ -69,7 +69,7 @@ jobs:
         timeout-minutes: 15
 
       # This is mentioned as example in the README:
-      - name: Build the node
+      - name: Build the node individually in release mode
         run: |
           # Save some space from debug builds
           rm -rf ./target
