@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  ci:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -45,35 +45,12 @@ jobs:
         run: SKIP_WASM_BUILD=1 cargo doc --workspace --no-deps
         timeout-minutes: 15
 
-  run-node:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    steps:
-      - uses: actions/checkout@v4
-
-      - if: contains(matrix.os, 'ubuntu')
-        uses: ./.github/actions/free-disk-space
-      - if: contains(matrix.os, 'ubuntu')
-        uses: ./.github/actions/ubuntu-dependencies
-      - if: contains(matrix.os, 'macos')
-        uses: ./.github/actions/macos-dependencies
-
-      - name: Build the node individually in release mode
-        run: cargo build --package parachain-template-node --release
-        timeout-minutes: 90
-
       # This test only makes sure the node got successfully built
-      # and can be executed without issues.
-      # A test including a relaychain will be done separately.
+      # and can be executed without issues on Ubuntu and macOS.
+      # Check the `test-zombienet` workflow for a parachain smoke test.
       - name: Check that the node starts up
         run: |
-          ./target/release/parachain-template-node --dev 2>&1 | tee out.txt &
-          until curl -s '127.0.0.1:9944'; do sleep 5; done
-          until cat out.txt | grep -s "💤 Idle"; do sleep 5; done
-        shell: bash
-        timeout-minutes: 5
+          ./target/debug/parachain-template-node --help
 
   build-docker:
     runs-on: ubuntu-latest

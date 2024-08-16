@@ -1,0 +1,42 @@
+name: Test Zombienet
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-zombienet:
+    runs-on: ubuntu-latest
+    env:
+      POLKADOT_VERSION: stable2407
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/free-disk-space
+      - uses: ./.github/actions/ubuntu-dependencies
+
+      - name: Build the node individually in release mode
+        run: cargo build --package parachain-template-node --release
+        timeout-minutes: 90
+
+      - name: Download relaychain binaries
+        run: |
+          wget --no-verbose https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-${{ env.POLKADOT_VERSION }}/polkadot
+          wget --no-verbose https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-${{ env.POLKADOT_VERSION }}/polkadot-prepare-worker
+          wget --no-verbose https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-${{ env.POLKADOT_VERSION }}/polkadot-execute-worker
+          chmod +x ./polkadot*
+        working-directory: ./target/release
+
+      - name: Run zombienet tests
+        run: |
+          export PATH="./target/release:$PATH"
+          npx --yes @zombienet/cli --provider native test .github/tests/zombienet-smoke-test.zndsl
+        shell: bash
+        timeout-minutes: 10
