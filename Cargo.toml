@@ -6,11 +6,7 @@ repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
 edition = "2021"
 
 [workspace]
-members = [
-    "node",
-    "pallets/template",
-    "runtime",
-]
+members = ["node", "pallets/template", "runtime"]
 resolver = "2"
 
 [workspace.dependencies]
@@ -24,7 +20,7 @@ cumulus-client-collator = { version = "0.18.0", default-features = false }
 cumulus-client-consensus-aura = { version = "0.18.0", default-features = false }
 cumulus-client-consensus-common = { version = "0.18.0", default-features = false }
 cumulus-client-consensus-proposer = { version = "0.16.0", default-features = false }
-cumulus-client-service = { version = "0.18.0", default-features = false }
+cumulus-client-service = { version = "0.19.0", default-features = false }
 cumulus-primitives-core = { version = "0.16.0", default-features = false }
 cumulus-primitives-parachain-inherent = { version = "0.16.0", default-features = false }
 cumulus-relay-chain-interface = { version = "0.18.0", default-features = false }
@@ -35,7 +31,7 @@ futures = { version = "0.3.30" }
 jsonrpsee = { version = "0.24.3" }
 log = { version = "0.4.22", default-features = false }
 pallet-transaction-payment-rpc = { version = "41.0.0", default-features = false }
-polkadot-cli = { version = "18.0.0", default-features = false }
+polkadot-cli = { version = "19.0.0", default-features = false }
 polkadot-primitives = { version = "16.0.0", default-features = false }
 prometheus-endpoint = { version = "0.17.0", default-features = false, package = "substrate-prometheus-endpoint" }
 sc-basic-authorship = { version = "0.45.0", default-features = false }
