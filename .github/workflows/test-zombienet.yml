@@ -38,7 +38,7 @@ jobs:
         run: |
           export PATH="./target/release:$PATH"
           rm -fr /tmp/zn-test || echo "No test directory to remove"
-          npx --yes @zombienet/cli --dir /tmp/zn-test --provider native test .github/tests/zombienet-smoke-test.zndsl || "Tests failed - proceeding to logs uploading"
+          npx --yes @zombienet/cli --dir /tmp/zn-test --provider native test .github/tests/zombienet-smoke-test.zndsl || echo "Tests failed - proceeding to logs uploading"
         shell: bash
         timeout-minutes: 60
       - name: Upload logs
