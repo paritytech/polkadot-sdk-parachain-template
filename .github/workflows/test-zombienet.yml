@@ -38,7 +38,6 @@ jobs:
         run: |
           export PATH="./target/release:$PATH"
           rm -fr /tmp/zn-test || echo "No test directory to remove"
-          mkdir /tmp/zn-test
           npx --yes @zombienet/cli --dir /tmp/zn-test --provider native test .github/tests/zombienet-smoke-test.zndsl
         shell: bash
         timeout-minutes: 60
