@@ -37,15 +37,16 @@ jobs:
       - name: Run zombienet tests
         run: |
           export PATH="./target/release:$PATH"
-          npx --yes @zombienet/cli --provider native test .github/tests/zombienet-smoke-test.zndsl
+          rm /tmp/zn-test || echo "No test directory to remove"
+          mkdir /tmp/zn-test
+          npx --yes @zombienet/cli --dir /tmp/zn-test --provider native test .github/tests/zombienet-smoke-test.zndsl
         shell: bash
         timeout-minutes: 60
-
-        #      - name: Upload logs
-        #uses: actions/upload-artifact@v4.3.6
-        #with:
-        #  name: zn-test-logs
-        #  path: |
-        #    /tmp/zn-test/logs/alice.log
-        #    /tmp/zn-test/logs/bob.log
-        #    /tmp/zn-test/logs/charlie.log
+      - name: Upload logs
+        uses: actions/upload-artifact@v4.3.6
+        with:
+          name: zn-test-logs
+          path: |
+            /tmp/zn-test/logs/alice.log
+            /tmp/zn-test/logs/bob.log
+            /tmp/zn-test/logs/charlie.log
