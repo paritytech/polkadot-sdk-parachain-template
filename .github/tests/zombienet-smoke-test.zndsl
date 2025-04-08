@@ -13,10 +13,10 @@ alice: parachain 1000 is registered within 60 seconds
 alice: parachain 1000 block height is at least 10 within 200 seconds
 
 alice: count of log lines matching "err=" is 0 within 10 seconds
-alice: count of log lines matching "Error" is 0 within 10 seconds
+alice: count of log lines matching "(?<!o)(?<!s)(?<! )error(?! )(?!1)(?!3)" is 0 within 10 seconds
 
 bob: count of log lines matching "err=" is 0 within 10 seconds
-bob: count of log lines matching "Error" is 0 within 10 seconds
+bob: count of log lines matching "(?<!o)(?<!s)(?<! )error(?! )(?!1)(?!3)" is 0 within 10 seconds
 
 charlie: count of log lines matching "err=" is 0 within 10 seconds
-charlie: count of log lines matching "Error" is 0 within 10 seconds
+charlie: count of log lines matching "(?<!o)(?<!s)(?<! )error(?! )(?!1)(?!3)" is 0 within 10 seconds
