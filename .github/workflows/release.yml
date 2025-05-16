@@ -54,12 +54,12 @@ jobs:
           rustup component add rust-src
 
       - name: Build the template
-        run: cargo build --locked --release
+        run: cargo build --workspace --locked --profile production
         timeout-minutes: 90
 
       - name: Upload the binaries
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            target/release/parachain-template-node
-            target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm
+            target/production/parachain-template-node
+            target/production/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm
