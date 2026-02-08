@@ -7,11 +7,7 @@ edition = "2021"
 
 [workspace]
 default-members = ["pallets/template", "runtime"]
-members = [
-    "node",
-    "pallets/template",
-    "runtime",
-]
+members = ["node", "pallets/template", "runtime"]
 resolver = "2"
 
 
@@ -82,4 +78,3 @@ panic = "unwind"
 codegen-units = 1
 inherits = "release"
 lto = true
-
