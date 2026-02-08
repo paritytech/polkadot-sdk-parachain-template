@@ -19,6 +19,10 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
+      - name: Install clang
+      - run: |
+          sudo apt update
+          sudo apt install clang
 
       - if: contains(matrix.os, 'ubuntu')
         uses: ./.github/actions/free-disk-space
