@@ -14,13 +14,19 @@ concurrency:
 jobs:
   test-zombienet:
     runs-on: ubuntu-latest
-    env:
-      POLKADOT_VERSION: stable2407
     steps:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/free-disk-space
       - uses: ./.github/actions/ubuntu-dependencies
+
+      - name: Extract polkadot-sdk version from Cargo.toml
+        id: extract-version
+        run: |
+          # Extract the polkadot-sdk version from workspace Cargo.toml
+          VERSION=$(grep -E '^polkadot-sdk = \{ version = "[0-9]+\.[0-9]+\.[0-9]+"' Cargo.toml | sed -E 's/.*version = "([0-9]+)\.[0-9]+\.[0-9]+".*/\1/')
+          echo "POLKADOT_VERSION=stable${VERSION}" >> $GITHUB_ENV
+          echo "Extracted polkadot-sdk version: stable${VERSION}"
 
       - name: Build the node individually in release mode
         run: cargo build --package parachain-template-node --release
