@@ -45,16 +45,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Rust compilation prerequisites
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            protobuf-compiler
-          rustup target add wasm32-unknown-unknown
-          rustup component add rust-src
+      - uses: ./.github/actions/ubuntu-dependencies
 
       - name: Build the template
-        run: cargo build --workspace --locked --profile production
+        run: cargo build --workspace --all-features --locked --profile production
         timeout-minutes: 90
 
       - name: Upload the binaries
