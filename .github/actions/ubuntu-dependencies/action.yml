@@ -8,7 +8,9 @@ runs:
       run: |
         sudo apt update
         sudo apt install -y \
-          protobuf-compiler
+          protobuf-compiler \
+          clang
         rustup target add wasm32-unknown-unknown
         rustup component add rustfmt clippy rust-src
+
       shell: bash
