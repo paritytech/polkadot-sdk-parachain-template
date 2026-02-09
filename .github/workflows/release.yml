@@ -48,7 +48,7 @@ jobs:
       - uses: ./.github/actions/ubuntu-dependencies
 
       - name: Build the template
-        run: cargo build --workspace --all-features --locked --profile production
+        run: SKIP_PALLET_REVIVE_FIXTURES=1 cargo build --workspace --all-features --locked --profile production
         timeout-minutes: 90
 
       - name: Upload the binaries
