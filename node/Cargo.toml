@@ -30,6 +30,10 @@ parachain-template-runtime = { workspace = true }
 # Substrate
 prometheus-endpoint = { workspace = true, default-features = true }
 
+# Temporary: forwards `runtime-benchmarks` to the umbrella's `pallet-staking-async`.
+# The next template sync removes this.
+pallet-staking-async = { version = "0.18.0", default-features = false, optional = true }
+
 [build-dependencies]
 polkadot-sdk = { workspace = true, features = ["substrate-build-script-utils"] }
 
@@ -41,6 +45,8 @@ std = [
 	"polkadot-sdk/std",
 ]
 runtime-benchmarks = [
+	"dep:pallet-staking-async",
+	"pallet-staking-async/runtime-benchmarks",
 	"parachain-template-runtime/runtime-benchmarks",
 	"polkadot-sdk/runtime-benchmarks",
 ]
