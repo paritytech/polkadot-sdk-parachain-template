@@ -11627,6 +11627,7 @@ dependencies = [
  "futures",
  "jsonrpsee 0.24.11",
  "log",
+ "pallet-staking-async",
  "parachain-template-runtime",
  "parity-scale-codec",
  "polkadot-sdk",
