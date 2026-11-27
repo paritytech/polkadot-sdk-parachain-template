@@ -7,7 +7,11 @@ edition = "2021"
 
 [workspace]
 default-members = ["pallets/template", "runtime"]
-members = ["node", "pallets/template", "runtime"]
+members = [
+    "node",
+    "pallets/template",
+    "runtime",
+]
 resolver = "2"
 
 
@@ -20,7 +24,9 @@ unexpected_cfgs = { level = "warn", check-cfg = [
 	'cfg(enable_alloc_error_handler)',
 	'cfg(fuzzing)',
 	'cfg(ignore_flaky_test)',
+	'cfg(revive_debug)',
 	'cfg(substrate_runtime)',
+	'cfg(without_inherent_upgrade_pallet)',
 ] }
 
 [workspace.lints.clippy]
@@ -56,19 +62,19 @@ clap = { version = "4.5.13" }
 codec = { version = "3.7.5", default-features = false, package = "parity-scale-codec" }
 color-print = { version = "0.3.4" }
 docify = { version = "0.2.9" }
-futures = { version = "0.3.31" }
-jsonrpsee = { version = "0.24.10" }
+futures = { version = "0.3.34" }
+jsonrpsee = { version = "0.24.11" }
 log = { version = "0.4.22", default-features = false }
-polkadot-sdk = { version = "2512.1.0", default-features = false }
+polkadot-sdk = { version = "2611.0.0", default-features = false }
 prometheus-endpoint = { version = "0.17.7", default-features = false, package = "substrate-prometheus-endpoint" }
 serde = { version = "1.0.214", default-features = false }
-cumulus-pallet-parachain-system = { version = "0.25.0", default-features = false }
+cumulus-pallet-parachain-system = { version = "0.33.0", default-features = false }
 hex-literal = { version = "0.4.1", default-features = false }
 scale-info = { version = "2.11.6", default-features = false }
 serde_json = { version = "1.0.132", default-features = false }
 smallvec = { version = "1.11.0", default-features = false }
-substrate-wasm-builder = { version = "31.1.0", default-features = false }
-frame = { version = "0.14.0", default-features = false, package = "polkadot-sdk-frame" }
+substrate-wasm-builder = { version = "36.0.0", default-features = false }
+frame = { version = "0.20.0", default-features = false, package = "polkadot-sdk-frame" }
 
 [profile.release]
 opt-level = 3
@@ -78,3 +84,4 @@ panic = "unwind"
 codegen-units = 1
 inherits = "release"
 lto = true
+
